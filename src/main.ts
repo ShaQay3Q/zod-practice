@@ -1,33 +1,29 @@
 import { z } from "zod";
 
-type MyUser = {
-	username: string;
-};
-
-const MyUserSchema = z.object({
-	username: z.string(),
-});
-
-const myUser: MyUser = { username: "Shaghayegh" };
-
-//! OR
 const UserSchema = z.object({
 	username: z.string(),
+	age: z.number(),
+	birthday: z.string().date({ message: "Invalid date string!" }),
+	isProgrammer: z.boolean(),
+	email: z.string().email({ message: "Invalid email address" }),
 });
 
-// automatically infered (stentaj) the type for us based on the schema
+// automatically infered (estentaj) the type for us based on the schema
 type User = z.infer<typeof UserSchema>;
 
-// check if the user matches the schema
-console.log(MyUserSchema.parse(myUser));
+const user: User = {
+	username: "Luci",
+	age: 24,
+	birthday: "2000-03-19",
+	isProgrammer: true,
+	email: "sha@email.con",
+};
 
-const userOne = { username: "Shaghayegh" };
-
-// try {
-const userTwo = { username: 1 };
-// console.log(UserSchema.parse(userTwo));
-console.log(UserSchema.safeParse(userTwo)); // console.log and object with "success: false"
-console.log(UserSchema.safeParse(userOne)); // safePars => allow some true/false validation, if we need it
-// } catch (e) {
-// 	console.log(e);
-// }
+try {
+	// check if the user matches the schema
+	// const myUser = UserSchema.safeParse(user);
+	const myUser = UserSchema.safeParse(user).success;
+	console.log(myUser);
+} catch (e) {
+	console.log(e);
+}
