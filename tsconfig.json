@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"], // ESNext - loose the last one
+		"skipLibCheck": true, // Loose this one
+
+		/* Bundler mode */
+		"moduleResolution": "bundler", // can be set to Node
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+
+		/* Linting */
+		"strict": true, // for using zod, it should be like this!
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true
+		// "noUncheckedSideEffectImports": true,
+	},
+	"include": ["src"]
+}
